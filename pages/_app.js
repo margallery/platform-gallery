@@ -1,27 +1,30 @@
-import 'nextra-theme-blog/style.css'
-import Head from 'next/head'
+import {ThemeProvider} from 'theme-ui'
+import theme from '../utils/theme'
+import '../styles/header.scss'
+import '../styles/layout.scss'
+import '../styles/footer.scss'
+import '../styles/component.scss'
+import {initGA, trackGAEvent} from '../utils/googleAnalytics'
 
-import '../styles/main.css'
-
-export default function Nextra({ Component, pageProps }) {
-  return (
-    <>
-      <Head>
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="RSS"
-          href="/feed.xml"
-        />
-        <link
-          rel="preload"
-          href="/fonts/Inter-roman.latin.var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </Head>
-      <Component {...pageProps} />
-    </>
+// for more info on measuring app performance
+// visit https://nextjs.org/docs/advanced-features/measuring-performance
+export function reportWebVitals(metric) {
+  initGA()
+  const {id, name, label, value} = metric
+  trackGAEvent(
+    'Web Vitals',
+    'NextJS Custom Metric',
+    name,
+    Math.round(name === 'CLS' ? value * 1000 : value)
   )
 }
+
+function MyApp({Component, pageProps}) {
+  return (
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  )
+}
+
+export default MyApp
