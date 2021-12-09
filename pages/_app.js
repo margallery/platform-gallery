@@ -15,7 +15,7 @@ export default function Nextra({ Component, pageProps }) {
         />
         <link
           rel="preload"
-          href="/fonts/Inter-roman.latin.var.woff2"
+          href="/fonts/HelveticaNeue-Regular.woff"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
